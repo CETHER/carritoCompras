@@ -31,7 +31,8 @@ ul {
     list-style: none;
 }
 #hero {
-    background-image:url(../img/hero.jpg);
+    background-image: url(../img/hero2.jpg);
+    background-size: cover;
     height: 350px;
 }
 #encabezado {
