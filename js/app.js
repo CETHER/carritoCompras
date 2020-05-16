@@ -4,17 +4,20 @@ const cursos = document.getElementById('lista-cursos');
 const listaCarrito = document.querySelector('#lista-carrito tbody');
 
 //Listeners
-
-const cargarEventListeners = () => {
+//const cargarEventListeners = 
+(() => {
   //Se dispara función al presionar "Agregar al carrito"
   cursos.addEventListener('click', comprarCurso);
-}
 
-cargarEventListeners();
+  //Se dispara función al presionar la X en el carrito
+  carrito.addEventListener('click', eliminarCurso);
+  
+})();
+//cargarEventListeners();
 
 
 //Funciones
-//Función que añade el curso al carrito
+//Función que añade el curso al carrito en el DOM
 function comprarCurso(e) {
   e.preventDefault();
   //Comprueba si se dió click en el botón agregar carrito (Delegation)
@@ -22,8 +25,7 @@ function comprarCurso(e) {
     curso = e.target.parentElement.parentElement;
     //ejecuta función para leer los componentes del curso ('card) enviando el elemento como parámetro
     leerDatosCurso(curso);
-  };
-  
+  }; 
 }
 
 //Función lee datos del curso
@@ -36,9 +38,7 @@ function leerDatosCurso(curso) {
     precio: curso.querySelector('.precio span').textContent,
     id: curso.querySelector('a').getAttribute('data-id'),
   }
-
   insertarCarrito(infoCurso);
-  
 }
 
 //Función que muestra el curso seleccionado en el carrito
@@ -55,8 +55,17 @@ function insertarCarrito(infoCurso) {
     <td>
       <a href="#" class="borrar-curso" data-id="${infoCurso.id}">X</td>
   `;
-
   //Se agregar a la lista
   listaCarrito.appendChild(row);
-  
+}
+
+//Función que quita a curso de carrito en el DOM
+function eliminarCurso(e) {
+  e.preventDefault();
+
+  let curso;
+  if (e.target.classList.contains('borrar-curso')) {
+    //remueve el curso del carrito a través de un delegation
+    e.target.parentElement.parentElement.remove();
+  }; 
 }
