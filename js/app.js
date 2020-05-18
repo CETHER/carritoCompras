@@ -15,6 +15,9 @@ const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 
   //Se dispara la función al presionar el botón de vaciar carrito
   vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+
+  //Al cargar DOM, mostrar datos de LS
+  document.addEventListener('DOMContentLoaded', leerLS);
   
 })();
 //cargarEventListeners();
@@ -112,4 +115,26 @@ function obtenerCursosLS() {
   }
 
   return cursosLS;
+}
+
+//Imprime los cursos de LocalStorage en el carrito
+function leerLS() {
+  let cursosLS
+
+  cursosLS = obtenerCursosLS();
+
+  cursosLS.forEach((curso) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>
+        <img src="${curso.imagen}" width="100" />
+      </td>
+      <td>${curso.titulo}</td>
+      <td>${curso.precio}</td>
+      <td>
+        <a href="#" class="borrar-curso" data-id="${curso.id}">X</td>
+    `;
+    //Se agregar a la lista
+    listaCarrito.appendChild(row);
+  });
 }
